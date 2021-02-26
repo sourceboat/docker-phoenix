@@ -33,7 +33,9 @@ RUN mkdir $HOME
 WORKDIR $HOME
 
 RUN apk -U upgrade \
-    && apk add --no-cache openssl ncurses-libs
+    && apk add --no-cache bash openssl ncurses-libs
+
+SHELL ["/bin/bash", "-c"]
 
 COPY --from=builder /opt/scripts /opt/scripts
 
