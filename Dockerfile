@@ -35,7 +35,6 @@ RUN apk -U upgrade \
     && apk add --no-cache openssl ncurses-libs
 
 RUN chown nobody:nobody $HOME
-USER nobody:nobody
 
 COPY --from=builder /root /root
 
