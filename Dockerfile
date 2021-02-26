@@ -22,10 +22,10 @@ CMD /root/run-prod.sh
 EXPOSE 4000
 
 ##################################################
-# Stage: release
+# Stage: runtime
 ##################################################
 
-FROM alpine:3.13.2 as release
+FROM alpine:3.13.2 as runtime
 
 ENV HOME=/opt/app
 RUN mkdir $HOME
