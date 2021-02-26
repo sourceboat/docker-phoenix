@@ -1,14 +1,16 @@
 ##################################################
-# Stage: base
+# Stage: builder
 ##################################################
 
-FROM elixir:1.10.3-alpine as base
+FROM elixir:1.10.3-alpine as builder
 
-RUN mkdir /opt/app
-WORKDIR /opt/app
+ENV HOME=/opt/app
+RUN mkdir $HOME
+WORKDIR $HOME
 
 RUN apk -U upgrade \
-    && apk add --no-cache bash
+    && apk add --no-cache bash build-base nodejs npm yarn \
+    mix do local.hex --force, local.rebar --force
 
 SHELL ["/bin/bash", "-c"]
 
@@ -20,11 +22,23 @@ CMD /root/run-prod.sh
 EXPOSE 4000
 
 ##################################################
-# Stage: default
+# Stage: release
 ##################################################
 
-FROM base
+FROM alpine:3.13.2 as release
 
-RUN apk add --no-cache nodejs npm yarn
+ENV HOME=/opt/app
+RUN mkdir $HOME
+WORKDIR $HOME
 
-CMD /root/run-dev.sh
+RUN apk -U upgrade \
+    && apk add --no-cache openssl ncurses-libs
+
+RUN chown nobody:nobody $HOME
+USER nobody:nobody
+
+COPY --from=builder /root /root
+
+ENTRYPOINT ["/root/entrypoint.sh"]
+CMD /root/run-prod.sh
+EXPOSE 4000

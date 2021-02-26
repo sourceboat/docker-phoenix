@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Running via DEV script..."
-cd /opt/app
+cd $HOME
 
 # install dependencies
 mix deps.get
