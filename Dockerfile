@@ -19,7 +19,7 @@ COPY opt/scripts/ /opt/scripts
 RUN find /opt/scripts/ -name "*.sh" -exec chmod -v +x {} \;
 
 ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
-CMD /opt/scripts/run-prod.sh
+CMD /opt/scripts/run-dev.sh
 EXPOSE 4000
 
 ##################################################
