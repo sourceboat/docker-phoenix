@@ -15,10 +15,11 @@ RUN apk -U upgrade \
 SHELL ["/bin/bash", "-c"]
 
 COPY root/ /root
-RUN find /root/ -name "*.sh" -exec chmod -v +x {} \;
+COPY opt/scripts/ /opt/scripts
+RUN find /opt/scripts/ -name "*.sh" -exec chmod -v +x {} \;
 
-ENTRYPOINT ["/root/entrypoint.sh"]
-CMD /root/run-prod.sh
+ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
+CMD /opt/scripts/run-prod.sh
 EXPOSE 4000
 
 ##################################################
@@ -34,10 +35,10 @@ WORKDIR $HOME
 RUN apk -U upgrade \
     && apk add --no-cache openssl ncurses-libs
 
-RUN chown nobody:nobody $HOME
+COPY --from=builder /opt/scripts /opt/scripts
 
-COPY --from=builder /root /root
+RUN chown -R nobody:nobody /opt
 
-ENTRYPOINT ["/root/entrypoint.sh"]
-CMD /root/run-prod.sh
+ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
+CMD /opt/scripts/run-prod.sh
 EXPOSE 4000
