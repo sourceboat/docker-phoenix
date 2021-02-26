@@ -2,4 +2,4 @@
 echo "Running via PROD script..."
 
 # start application
-$APP_NAME start
+$RELEASE_NAME start
