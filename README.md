@@ -19,7 +19,7 @@ This project contains two Docker image variants:
 
 In addition to the specific versions there are `latest` (based on the `main` branch) and `edge` (based on the `develop` branch) version tags available.
 
-**Note:** You can check the [`Dockerfile`](Dockerfile) or the [releases page](https://github.com/sourceboat/docker-phoenix/releases) for info on the current versions of Elixir and Alpine.
+**Note:** You can check the [`Dockerfile`](Dockerfile) or the [releases page](https://github.com/sourceboat/docker-phoenix/releases) for info on the currently used versions of Elixir and Alpine.
 
 ### Additional Startup Commands
 
