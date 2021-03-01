@@ -12,7 +12,7 @@ RUN mkdir $HOME
 WORKDIR $HOME
 
 RUN apk -U upgrade \
-    && apk add --no-cache bash build-base nodejs npm yarn \
+    && apk add --no-cache bash build-base inotify-tools nodejs npm yarn \
     && mix do local.hex --force, local.rebar --force
 
 SHELL ["/bin/bash", "-c"]
