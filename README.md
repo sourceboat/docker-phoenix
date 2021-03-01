@@ -1,4 +1,4 @@
-# docker-phoenix `WIP`
+# docker-phoenix
 
 [![Docker Build Status](https://img.shields.io/docker/cloud/build/sourceboat/docker-phoenix.svg?style=flat-square)](https://hub.docker.com/r/sourceboat/docker-phoenix/builds/)
 [![Release](https://img.shields.io/github/release/sourceboat/docker-phoenix.svg?style=flat-square)](https://github.com/sourceboat/docker-phoenix/releases)
@@ -16,6 +16,8 @@ This project contains two Docker image variants:
 
 - `<version>-builder` is based on the latest official `elixir:alpine` image and contains additional dependencies to develop and release a Phoenix application.
 - `<version>-runtime` is based on the latest official `alpine` image and contains just the minimal tools to run an Elixir release.
+
+You can check the [`Dockerfile`](Dockerfile) or the [releases page](https://github.com/sourceboat/docker-phoenix/releases) for info on the current versions of Elixir and Alpine.
 
 In addition to the specific versions there are `latest` (based on the `main` branch) and `edge` (based on the `develop` branch) version tags available.
 
