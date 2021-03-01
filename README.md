@@ -6,7 +6,7 @@
 [![Image Size](https://img.shields.io/docker/image-size/sourceboat/docker-phoenix?style=flat-square)](https://microbadger.com/images/sourceboat/docker-phoenix)
 [![MicroBadger Layers](https://img.shields.io/microbadger/layers/sourceboat/docker-phoenix.svg?style=flat-square)](https://microbadger.com/images/sourceboat/docker-phoenix)
 
-A highly opinionated docker image which aims to be perfectly suited to run our Phoenix applications.
+An opinionated docker image which aims to be perfectly suited to run our Phoenix applications.
 
 ## What's included?
 
@@ -14,12 +14,12 @@ A highly opinionated docker image which aims to be perfectly suited to run our P
 
 This project contains two Docker image variants:
 
-- `<version>-builder` is based on the latest official `elixir:alpine` image and contains additional dependencies to develop and release a Phoenix application.
-- `<version>-runtime` is based on the latest official `alpine` image and contains just the minimal tools to run an Elixir release.
-
-You can check the [`Dockerfile`](Dockerfile) or the [releases page](https://github.com/sourceboat/docker-phoenix/releases) for info on the current versions of Elixir and Alpine.
+- `<version>-builder` is based on an up-to-date version of the official `elixir:<x.x.x>-alpine` image and contains additional dependencies to develop and release a Phoenix application.
+- `<version>-runtime` is based on an up-to-date version of the  official `alpine:<x.x.x>` image and contains just the minimal tools to run an Elixir release.
 
 In addition to the specific versions there are `latest` (based on the `main` branch) and `edge` (based on the `develop` branch) version tags available.
+
+**Note:** You can check the [`Dockerfile`](Dockerfile) or the [releases page](https://github.com/sourceboat/docker-phoenix/releases) for info on the current versions of Elixir and Alpine.
 
 ### Additional Startup Commands
 
