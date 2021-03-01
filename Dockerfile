@@ -4,7 +4,10 @@
 
 FROM elixir:1.10.3-alpine as builder
 
-ENV HOME=/opt/app
+ENV HOME=/opt/app \
+    MIX_HOME=/opt/mix \
+    HEX_HOME=/opt/hex
+
 RUN mkdir $HOME
 WORKDIR $HOME
 
