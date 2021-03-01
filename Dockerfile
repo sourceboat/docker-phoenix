@@ -19,7 +19,7 @@ COPY opt/scripts/ /opt/scripts
 RUN find /opt/scripts/ -name "*.sh" -exec chmod -v +x {} \;
 
 ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
-CMD /opt/scripts/run-dev.sh
+CMD ["mix", "phx.server"]
 EXPOSE 4000
 
 ##################################################
@@ -42,5 +42,5 @@ COPY --from=builder /opt/scripts /opt/scripts
 RUN chown -R nobody:nobody /opt
 
 ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
-CMD /opt/scripts/run-prod.sh
+CMD ["bash", "-c", "$RELEASE_NAME start"]
 EXPOSE 4000
