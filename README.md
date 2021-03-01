@@ -8,11 +8,27 @@
 
 A highly opinionated docker image which aims to be perfectly suited to run our Phoenix applications.
 
+## What's included?
+
+### Images for Development and Production
+
+This project contains two Docker image variants:
+
+- `<version>-builder` is based on the latest official `elixir:alpine` image and contains additional dependencies to develop and release a Phoenix application.
+- `<version>-runtime` is based on the latest official `alpine` image and contains just the minimal tools to run an Elixir release.
+
+In addition to the specific versions there are `latest` (based on the `main` branch) and `edge` (based on the `develop` branch) version tags available.
+
+### Additional Startup Commands
+
+You can add environment varialbles to run additional commands on container startup via the `STARTUP_COMMAND_<XXX>` syntax.
+This is useful for installing dependencies in development (see usage example below) or running database migrations in simple production setups.
+
 ## Usage
 
 You can use this `Dockerfile` as a starting point and adjust it to your needs:
 
-```
+```Dockerfile
 ########################################################################
 # Stage: builder
 ########################################################################
@@ -63,7 +79,7 @@ USER nobody:nobody
 
 For local development you can use the following `docker-compose.yml` file:
 
-```
+```yml
 version: '3.7'
 services:
   app:
