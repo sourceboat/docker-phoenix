@@ -17,7 +17,9 @@ RUN apk -U upgrade \
 
 SHELL ["/bin/bash", "-c"]
 
-COPY root/ /root
+COPY etc/profile.d/ /etc/profile.d
+RUN find /etc/profile.d/ -name "*.sh" -exec chmod -v +x {} \;
+
 COPY opt/scripts/ /opt/scripts
 RUN find /opt/scripts/ -name "*.sh" -exec chmod -v +x {} \;
 
@@ -40,6 +42,7 @@ RUN apk -U upgrade \
 
 SHELL ["/bin/bash", "-c"]
 
+COPY --from=builder /etc/profile.d /etc/profile.d
 COPY --from=builder /opt/scripts /opt/scripts
 
 RUN chown -R nobody:nobody /opt
