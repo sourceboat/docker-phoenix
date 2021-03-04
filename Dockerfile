@@ -43,6 +43,7 @@ RUN apk -U upgrade \
 SHELL ["/bin/bash", "-c"]
 
 COPY --from=builder /opt/scripts /opt/scripts
+COPY --from=builder /etc/profile.d /etc/profile.d
 
 RUN chown -R nobody:nobody /opt
 
