@@ -4,12 +4,11 @@ services:
     build:
       context: .
       target: builder
-    environment: 
-      - STARTUP_COMMAND_1=elixir --version
-      - STARTUP_COMMAND_2=mix --version
-      - STARTUP_COMMAND_3=mix archive.install hex phx_new --force
-      - STARTUP_COMMAND_4=mix phx.new docker_test --no-webpack --no-ecto --no-html --no-gettext --no-dashboard 
-      - STARTUP_COMMAND_5=mv docker_test/* /opt/app 
-      - STARTUP_COMMAND_6=mix do deps.get, deps.compile
-      - STARTUP_COMMAND_7=mix phx.server &
+    environment:
+      - STARTUP_COMMAND_1=mix hex.info
+      - STARTUP_COMMAND_2=mix archive.install hex phx_new --force
+      - STARTUP_COMMAND_3=mix phx.new docker_test --no-webpack --no-ecto --no-html --no-gettext --no-dashboard
+      - STARTUP_COMMAND_4=mv docker_test/* /opt/app
+      - STARTUP_COMMAND_5=mix do deps.get, deps.compile
+      - STARTUP_COMMAND_6=mix phx.server &
     command: wait-for-it.sh --host=localhost --port=4000
