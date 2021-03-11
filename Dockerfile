@@ -17,7 +17,8 @@ RUN apk -U upgrade \
 
 SHELL ["/bin/bash", "-c"]
 
-COPY root/ /root
+COPY etc/profile.d/ /etc/profile.d
+RUN find /etc/profile.d/ -name "*.sh" -exec chmod -v +x {} \;
 
 COPY opt/scripts/ /opt/scripts
 ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /opt/scripts/
@@ -42,6 +43,7 @@ RUN apk -U upgrade \
 
 SHELL ["/bin/bash", "-c"]
 
+COPY --from=builder /etc/profile.d /etc/profile.d
 COPY --from=builder /opt/scripts /opt/scripts
 
 RUN chown -R nobody:nobody /opt
