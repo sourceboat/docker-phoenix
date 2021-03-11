@@ -18,7 +18,9 @@ RUN apk -U upgrade \
 SHELL ["/bin/bash", "-c"]
 
 COPY root/ /root
+
 COPY opt/scripts/ /opt/scripts
+ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /opt/scripts/
 RUN find /opt/scripts/ -name "*.sh" -exec chmod -v +x {} \;
 
 ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
