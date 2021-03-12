@@ -2,7 +2,7 @@
 # Stage: builder
 ##################################################
 
-FROM elixir:1.10.4-alpine as builder
+FROM elixir:1.11.3-alpine as builder
 
 ENV HOME=/opt/app \
     MIX_HOME=/opt/mix \
@@ -21,9 +21,11 @@ COPY etc/profile.d/ /etc/profile.d
 RUN find /etc/profile.d/ -name "*.sh" -exec chmod -v +x {} \;
 
 COPY opt/scripts/ /opt/scripts
+ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /opt/scripts/
 RUN find /opt/scripts/ -name "*.sh" -exec chmod -v +x {} \;
+ENV PATH=/opt/scripts/:$PATH
 
-ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["mix", "phx.server"]
 EXPOSE 4000
 
@@ -47,6 +49,6 @@ COPY --from=builder /opt/scripts /opt/scripts
 
 RUN chown -R nobody:nobody /opt
 
-ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["bash", "-c", "$RELEASE_NAME start"]
 EXPOSE 4000
