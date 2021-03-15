@@ -48,6 +48,7 @@ COPY --from=builder /etc/profile.d /etc/profile.d
 COPY --from=builder /opt/scripts /opt/scripts
 
 RUN chown -R nobody:nobody /opt
+ENV PATH=/opt/scripts/:$PATH
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["bash", "-c", "$RELEASE_NAME start"]
