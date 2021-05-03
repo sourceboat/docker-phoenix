@@ -11,9 +11,10 @@ ENV HOME=/opt/app \
 RUN mkdir $HOME
 WORKDIR $HOME
 
-RUN apk -U upgrade \
-    && apk add --no-cache bash build-base git inotify-tools nodejs npm yarn \
-    && mix do local.hex --force, local.rebar --force
+RUN apk --no-cache --update-cache --available upgrade \
+    && apk add --no-cache --update-cache bash ca-certificates build-base git inotify-tools nodejs npm yarn \
+    && mix do local.hex --force, local.rebar --force \
+    && update-ca-certificates --fresh
 
 SHELL ["/bin/bash", "-c"]
 
@@ -39,8 +40,9 @@ ENV HOME=/opt/app
 RUN mkdir $HOME
 WORKDIR $HOME
 
-RUN apk -U upgrade \
-    && apk add --no-cache bash openssl ncurses-libs
+RUN apk --no-cache --update-cache --available upgrade \
+    && apk add --no-cache --update-cache bash ca-certificates openssl ncurses-libs \
+    && update-ca-certificates --fresh
 
 SHELL ["/bin/bash", "-c"]
 
