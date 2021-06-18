@@ -4,12 +4,11 @@
 
 FROM elixir:1.12.1-alpine as builder
 
-ENV HOME=/opt/app \
-    MIX_HOME=/opt/mix \
+ENV MIX_HOME=/opt/mix \
     HEX_HOME=/opt/hex
 
-RUN mkdir $HOME
-WORKDIR $HOME
+RUN mkdir /opt/app
+WORKDIR /opt/app
 
 RUN apk --no-cache --update-cache --available upgrade \
     && apk add --no-cache --update-cache bash ca-certificates libstdc++ libgcc build-base git inotify-tools nodejs npm yarn \
@@ -20,6 +19,7 @@ SHELL ["/bin/bash", "-c"]
 
 COPY etc/profile.d/ /etc/profile.d
 RUN find /etc/profile.d/ -name "*.sh" -exec chmod -v +x {} \;
+COPY .bashrc /root/.bashrc
 
 COPY opt/scripts/ /opt/scripts
 ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /opt/scripts/
@@ -48,6 +48,7 @@ SHELL ["/bin/bash", "-c"]
 
 COPY --from=builder /etc/profile.d /etc/profile.d
 COPY --from=builder /opt/scripts /opt/scripts
+COPY .bashrc .
 
 RUN chown -R nobody:nobody /opt
 ENV PATH=/opt/scripts/:$PATH

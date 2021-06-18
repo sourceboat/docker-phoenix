@@ -1,0 +1,2 @@
+# .bashrc
+source /etc/profile
