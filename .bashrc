@@ -1,1 +1,1 @@
-source /etc/profile
+source /etc/bash.bashrc
