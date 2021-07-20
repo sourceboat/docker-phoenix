@@ -5,10 +5,11 @@
 FROM elixir:1.12.1-alpine as builder
 
 ENV MIX_HOME=/opt/mix \
-    HEX_HOME=/opt/hex
+    HEX_HOME=/opt/hex \
+    APP_HOME=/opt/app
 
-RUN mkdir /opt/app
-WORKDIR /opt/app
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
 
 RUN apk --no-cache --update-cache --available upgrade \
     && apk add --no-cache --update-cache bash ca-certificates libstdc++ libgcc build-base git inotify-tools nodejs npm yarn \
@@ -17,9 +18,9 @@ RUN apk --no-cache --update-cache --available upgrade \
 
 SHELL ["/bin/bash", "-c"]
 
-COPY etc/profile.d/ /etc/profile.d
-RUN find /etc/profile.d/ -name "*.sh" -exec chmod -v +x {} \;
-COPY .bashrc /root/.bashrc
+COPY etc /etc/
+RUN find /etc/bashrc.d/ -name "*.sh" -exec chmod -v +x {} \;
+COPY .bashrc /root/
 
 COPY opt/scripts/ /opt/scripts
 ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /opt/scripts/
@@ -33,12 +34,12 @@ EXPOSE 4000
 ##################################################
 # Stage: runtime
 ##################################################
-
 FROM alpine:3.14.0 as runtime
 
-ENV HOME=/opt/app
-RUN mkdir $HOME
-WORKDIR $HOME
+
+ENV APP_HOME=/opt/app
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
 
 RUN apk --no-cache --update-cache --available upgrade \
     && apk add --no-cache --update-cache bash ca-certificates libstdc++ libgcc openssl ncurses-libs \
@@ -46,9 +47,10 @@ RUN apk --no-cache --update-cache --available upgrade \
 
 SHELL ["/bin/bash", "-c"]
 
-COPY --from=builder /etc/profile.d /etc/profile.d
+COPY --from=builder /etc/bashrc.d /etc/bashrc.d
+COPY --from=builder /etc/bash.bashrc /etc/bash.bashrc
 COPY --from=builder /opt/scripts /opt/scripts
-COPY .bashrc .
+COPY .bashrc /root/
 
 RUN chown -R nobody:nobody /opt
 ENV PATH=/opt/scripts/:$PATH
