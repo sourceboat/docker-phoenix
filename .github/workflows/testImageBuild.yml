@@ -1,4 +1,4 @@
-name: Build test image
+name: Test image build
 
 on: [pull_request]
 
