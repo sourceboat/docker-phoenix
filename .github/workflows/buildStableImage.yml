@@ -17,12 +17,10 @@ jobs:
         id: metabuilder
         uses: docker/metadata-action@v3
         with:
-          # list of Docker images to use as base name for tags
           images: |
             sourceboat/docker-phoenix
           flavour: |
             latest=false
-          # generate Docker tags based on the following events/attributes
           tags: |
             type=semver,pattern=latest-builder
             type=semver,pattern={{version}}-builder
@@ -33,12 +31,10 @@ jobs:
         id: metaruntime
         uses: docker/metadata-action@v3
         with:
-          # list of Docker images to use as base name for tags
           images: |
             sourceboat/docker-phoenix
           flavour: |
             latest=false
-          # generate Docker tags based on the following events/attributes
           tags: |
             type=semver,pattern=latest-runtime
             type=semver,pattern={{version}}-runtime
