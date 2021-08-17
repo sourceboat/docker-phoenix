@@ -1,4 +1,4 @@
-name: Build stable image
+name: Test, build and push stable image
 
 on:
   push:
@@ -6,7 +6,18 @@ on:
       - '*.*.*'
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Run tests
+        run: docker-compose -f docker-compose.test.yml run test
+
   docker:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       -
