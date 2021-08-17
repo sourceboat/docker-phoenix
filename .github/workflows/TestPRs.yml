@@ -1,4 +1,4 @@
-name: Test image build
+name: Test image build in pull requests
 
 on:
   pull_request:

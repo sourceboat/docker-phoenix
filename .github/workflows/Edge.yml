@@ -1,4 +1,4 @@
-name: Build edge image
+name: Test, build and push edge image
 
 on:
   push:
