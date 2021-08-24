@@ -2,7 +2,7 @@
 # Stage: builder
 ##################################################
 
-FROM elixir:1.12.1-alpine as builder
+FROM elixir:1.12.2-alpine as builder
 
 ENV MIX_HOME=/opt/mix \
     HEX_HOME=/opt/hex \
@@ -12,7 +12,7 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 RUN apk --no-cache --update-cache --available upgrade \
-    && apk add --no-cache --update-cache bash ca-certificates libstdc++ libgcc build-base git inotify-tools nodejs npm yarn \
+    && apk add --no-cache --update-cache bash ca-certificates libstdc++ build-base git inotify-tools nodejs npm yarn \
     && mix do local.hex --force, local.rebar --force \
     && update-ca-certificates --fresh
 
@@ -34,15 +34,14 @@ EXPOSE 4000
 ##################################################
 # Stage: runtime
 ##################################################
-FROM alpine:3.14.0 as runtime
-
+FROM alpine:3.14.1 as runtime
 
 ENV APP_HOME=/opt/app
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 RUN apk --no-cache --update-cache --available upgrade \
-    && apk add --no-cache --update-cache bash ca-certificates libstdc++ libgcc openssl ncurses-libs \
+    && apk add --no-cache --update-cache bash ca-certificates libstdc++ openssl ncurses-libs \
     && update-ca-certificates --fresh
 
 SHELL ["/bin/bash", "-c"]
