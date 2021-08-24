@@ -1,0 +1,15 @@
+name: Test image build in pull requests
+
+on:
+  pull_request:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Run tests
+        run: docker-compose -f docker-compose.test.yml run test
