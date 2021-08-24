@@ -4,12 +4,12 @@
 
 FROM elixir:1.12.2-alpine as builder
 
-ENV HOME=/opt/app \
-    MIX_HOME=/opt/mix \
-    HEX_HOME=/opt/hex
+ENV MIX_HOME=/opt/mix \
+    HEX_HOME=/opt/hex \
+    APP_HOME=/opt/app
 
-RUN mkdir $HOME
-WORKDIR $HOME
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
 
 RUN apk --no-cache --update-cache --available upgrade \
     && apk add --no-cache --update-cache bash ca-certificates libstdc++ build-base git inotify-tools nodejs npm yarn \
@@ -18,8 +18,9 @@ RUN apk --no-cache --update-cache --available upgrade \
 
 SHELL ["/bin/bash", "-c"]
 
-COPY etc/profile.d/ /etc/profile.d
-RUN find /etc/profile.d/ -name "*.sh" -exec chmod -v +x {} \;
+COPY etc /etc/
+RUN find /etc/bashrc.d/ -name "*.sh" -exec chmod -v +x {} \;
+COPY .bashrc /root/
 
 COPY opt/scripts/ /opt/scripts
 ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /opt/scripts/
@@ -36,9 +37,9 @@ EXPOSE 4000
 
 FROM alpine:3.14.1 as runtime
 
-ENV HOME=/opt/app
-RUN mkdir $HOME
-WORKDIR $HOME
+ENV APP_HOME=/opt/app
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
 
 RUN apk --no-cache --update-cache --available upgrade \
     && apk add --no-cache --update-cache bash ca-certificates libstdc++ openssl ncurses-libs \
@@ -46,8 +47,10 @@ RUN apk --no-cache --update-cache --available upgrade \
 
 SHELL ["/bin/bash", "-c"]
 
-COPY --from=builder /etc/profile.d /etc/profile.d
+COPY --from=builder /etc/bashrc.d /etc/bashrc.d
+COPY --from=builder /etc/bash.bashrc /etc/bash.bashrc
 COPY --from=builder /opt/scripts /opt/scripts
+COPY .bashrc /root/
 
 RUN chown -R nobody:nobody /opt
 ENV PATH=/opt/scripts/:$PATH
