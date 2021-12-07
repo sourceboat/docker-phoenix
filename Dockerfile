@@ -2,7 +2,7 @@
 # Stage: builder
 ##################################################
 
-FROM elixir:1.12.3-alpine as builder
+FROM elixir:1.13.0-alpine as builder
 
 ENV MIX_HOME=/opt/mix \
     HEX_HOME=/opt/hex \
@@ -35,7 +35,7 @@ EXPOSE 4000
 # Stage: runtime
 ##################################################
 
-FROM alpine:3.14.3 as runtime
+FROM alpine:3.15.0 as runtime
 
 ENV APP_HOME=/opt/app
 RUN mkdir $APP_HOME
