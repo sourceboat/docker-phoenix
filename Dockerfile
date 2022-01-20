@@ -2,7 +2,7 @@
 # Stage: builder
 ##################################################
 
-FROM elixir:1.13.1-alpine as builder
+FROM elixir:1.13.2-alpine as builder
 
 ENV MIX_HOME=/opt/mix \
     HEX_HOME=/opt/hex \
