@@ -2,11 +2,12 @@
 # Stage: builder
 ##################################################
 
-FROM elixir:1.13.2-alpine as builder
+FROM elixir:1.13.3-alpine as builder
 
 ENV MIX_HOME=/opt/mix \
     HEX_HOME=/opt/hex \
-    APP_HOME=/opt/app
+    APP_HOME=/opt/app \
+    ERL_AFLAGS="-kernel shell_history enabled"
 
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
@@ -35,9 +36,11 @@ EXPOSE 4000
 # Stage: runtime
 ##################################################
 
-FROM alpine:3.15.0 as runtime
+FROM alpine:3.15.2 as runtime
 
-ENV APP_HOME=/opt/app
+ENV APP_HOME=/opt/app \
+    ERL_AFLAGS="-kernel shell_history enabled"
+
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
