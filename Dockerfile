@@ -6,7 +6,8 @@ FROM elixir:1.13.3-alpine as builder
 
 ENV MIX_HOME=/opt/mix \
     HEX_HOME=/opt/hex \
-    APP_HOME=/opt/app
+    APP_HOME=/opt/app \
+    ERL_AFLAGS="-kernel shell_history enabled"
 
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
@@ -37,7 +38,9 @@ EXPOSE 4000
 
 FROM alpine:3.15.2 as runtime
 
-ENV APP_HOME=/opt/app
+ENV APP_HOME=/opt/app \
+    ERL_AFLAGS="-kernel shell_history enabled"
+
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
