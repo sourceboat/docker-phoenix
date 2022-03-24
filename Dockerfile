@@ -35,7 +35,7 @@ EXPOSE 4000
 # Stage: runtime
 ##################################################
 
-FROM alpine:3.15.1 as runtime
+FROM alpine:3.15.2 as runtime
 
 ENV APP_HOME=/opt/app
 RUN mkdir $APP_HOME
