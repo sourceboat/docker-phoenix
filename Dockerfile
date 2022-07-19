@@ -36,7 +36,7 @@ EXPOSE 4000
 # Stage: runtime
 ##################################################
 
-FROM alpine:3.16.0 as runtime
+FROM alpine:3.16.1 as runtime
 
 ENV APP_HOME=/opt/app \
     ERL_AFLAGS="-kernel shell_history enabled"
