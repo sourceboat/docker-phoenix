@@ -12,10 +12,10 @@ ENV MIX_HOME=/opt/mix \
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
-RUN apk --no-cache --update-cache --available upgrade \
-    && apk add --no-cache --update-cache bash ca-certificates libstdc++ build-base git inotify-tools nodejs npm yarn \
-    && mix do local.hex --force, local.rebar --force \
-    && update-ca-certificates --fresh
+RUN apk --no-cache --update-cache --available upgrade
+RUN apk add --no-cache --update-cache bash ca-certificates libstdc++ build-base git inotify-tools nodejs npm yarn
+RUN mix do local.hex --force, local.rebar --force
+RUN update-ca-certificates --fresh
 
 SHELL ["/bin/bash", "-c"]
 
