@@ -1,10 +1,7 @@
+ ⚠️ **Deprecated:** This project is not actively maintained anymore.
+ 
+ 
 # docker-phoenix
-
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/sourceboat/docker-phoenix.svg?style=flat-square)](https://hub.docker.com/r/sourceboat/docker-phoenix/builds/)
-[![Release](https://img.shields.io/github/release/sourceboat/docker-phoenix.svg?style=flat-square)](https://github.com/sourceboat/docker-phoenix/releases)
-[![Docker Pulls](https://img.shields.io/docker/pulls/sourceboat/docker-phoenix.svg?style=flat-square)](https://hub.docker.com/r/sourceboat/docker-phoenix/)
-[![Image Size](https://img.shields.io/docker/image-size/sourceboat/docker-phoenix?style=flat-square)](https://microbadger.com/images/sourceboat/docker-phoenix)
-[![MicroBadger Layers](https://img.shields.io/microbadger/layers/sourceboat/docker-phoenix.svg?style=flat-square)](https://microbadger.com/images/sourceboat/docker-phoenix)
 
 An opinionated docker image which aims to be perfectly suited to run our Phoenix applications.
 
